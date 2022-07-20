@@ -1,0 +1,1 @@
+heroku run psql -h ec2-63-32-248-14.eu-west-1.compute.amazonaws.com -p 5432 -U ogomxaratnudze df42jc5af42c3q -a full-stack-open-2022
