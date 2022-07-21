@@ -1,9 +1,16 @@
 const router = require("express").Router();
 
-const { Blog } = require("../models/index");
+const { Blog, User } = require("../models/index");
 
 router.get("/", async (req, res, next) => {
-	const blogs = await Blog.findAll({});
+	const blogs = await Blog.findAll({
+		include: [
+			{
+				model: User,
+				attributes: ["name"],
+			},
+		],
+	});
 	res.json(blogs);
 	// throw new Error("Not implemented");
 });
