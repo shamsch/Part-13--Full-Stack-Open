@@ -26,16 +26,23 @@ router.post("/", async (req, res, next) => {
 });
 
 router.delete("/:id", async (req, res, next) => {
-	const blog = await Blog.destroy({
+	if (!req.decodedToken) {
+		throw new Error("You must be logged in to delete a blog");
+	}
+	const blog = await Blog.findOne({
 		where: {
 			id: req.params.id,
 		},
 	});
+
 	if (!blog) {
-		res.status(404).send("Blog not found");
-	} else {
-		res.json("blog deleted");
+		throw new Error("Blog not found");
 	}
+	if (blog.userId !== req.decodedToken.id) {
+		throw new Error("You can only delete your own blogs");
+	}
+	await blog.destroy();
+	res.json({ message: "Blog deleted" });
 });
 
 router.put("/:id", async (req, res, next) => {
