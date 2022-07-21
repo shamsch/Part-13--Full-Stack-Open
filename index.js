@@ -7,10 +7,11 @@ const blogsRouter = require("./controllers/blog");
 const usersRouter = require("./controllers/user");
 const loginRouter = require("./controllers/login");
 const errorHandler = require("./middlewares/errorHandler");
+const tokenExtractor = require("./middlewares/tokenExtractor");
 
 app.use(express.json());
 
-app.use("/api/blogs", blogsRouter);
+app.use("/api/blogs", tokenExtractor, blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 

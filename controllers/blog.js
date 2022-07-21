@@ -9,7 +9,12 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-	const blog = await Blog.create(req.body);
+	if (!req.decodedToken) {
+		throw new Error("You must be logged in to view this page");
+	}
+	const { title, author, urlString } = req.body;
+	const userId = req.decodedToken.id;
+	const blog = await Blog.create({ title, author, urlString, userId });
 	res.json(blog);
 });
 
