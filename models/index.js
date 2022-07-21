@@ -6,7 +6,7 @@ const User = require("./user");
 //now we can use the userId column in the blog table to find the user that created the blog
 //by default the userId refers to the id of the user that created the blog and it is a foreign key in the blog table
 //and one user can have many blogs, thus the name one to many
-//note user table remainds unchanged
+//note user table can now also be populated with data from the blog table
 
 User.hasMany(Blog);
 Blog.belongsTo(User);
