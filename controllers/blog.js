@@ -38,4 +38,20 @@ router.delete("/:id", async (req, res) => {
 	}
 });
 
+router.put("/:id", async (req, res) => {
+	try {
+		const blog = await Blog.findByPk(req.params.id);
+		if (!blog) {
+			res.status(404).send("Blog not found");
+		} else {
+			blog.likes = blog.likes + 1;
+			await blog.save();
+			res.json({ likes: blog.likes });
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Error updating blog");
+	}
+});
+
 module.exports = router;
