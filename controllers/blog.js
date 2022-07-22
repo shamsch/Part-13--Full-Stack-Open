@@ -22,6 +22,7 @@ router.get("/", async (req, res, next) => {
 			},
 		],
 		where,
+		order: [["likes", "DESC"]],
 	});
 	res.json(blogs);
 	// throw new Error("Not implemented");
