@@ -11,8 +11,9 @@ const User = require("./user");
 User.hasMany(Blog);
 Blog.belongsTo(User);
 
-Blog.sync({ alter: true });
-User.sync({ alter: true });
+// commented out because of migration will be used to create the user table in the database from now on
+// Blog.sync({ alter: true });
+// User.sync({ alter: true });
 
 module.exports = {
 	Blog,
