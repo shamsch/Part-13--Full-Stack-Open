@@ -32,10 +32,24 @@ router.post("/", async (req, res, next) => {
 	if (!req.decodedToken) {
 		throw new Error("You must be logged in to view this page");
 	}
-	const { title, author, urlString } = req.body;
+	const { title, author, urlString, year } = req.body;
 	const userId = req.decodedToken.id;
-	const blog = await Blog.create({ title, author, urlString, userId });
-	res.json(blog);
+	if (year >= 1991 && year <= new Date().getFullYear()) {
+		const blog = await Blog.create({
+			title,
+			author,
+			urlString,
+			userId,
+			year,
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		});
+		res.json(blog);
+	} else {
+		res.status(400).json({
+			error: "Year must be between 1991 and current year",
+		});
+	}
 });
 
 router.delete("/:id", async (req, res, next) => {
@@ -64,6 +78,7 @@ router.put("/:id", async (req, res, next) => {
 		res.status(404).send("Blog not found");
 	} else {
 		blog.likes = blog.likes + 1;
+		blog.updatedAt = new Date();
 		await blog.save();
 		res.json({ likes: blog.likes });
 	}
