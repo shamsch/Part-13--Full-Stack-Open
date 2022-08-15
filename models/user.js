@@ -23,6 +23,10 @@ User.init(
 				isEmail: true,
 			},
 		},
+		disabled:{
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		}
 	},
 	{ sequelize, underscored: true, modelName: "user", timestamps: false }
 );

@@ -34,6 +34,15 @@ router.post("/", async (req, res, next) => {
 	}
 	const { title, author, urlString, year } = req.body;
 	const userId = req.decodedToken.id;
+	const userIsValid = await User.findOne({
+		where: {
+			id: userId,
+		},
+	});
+	
+	if (userIsValid.disabled){
+		throw new Error("You are disabled");
+	}
 	if (year >= 1991 && year <= new Date().getFullYear()) {
 		const blog = await Blog.create({
 			title,

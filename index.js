@@ -8,17 +8,19 @@ const usersRouter = require("./controllers/user");
 const loginRouter = require("./controllers/login");
 const authorRouter = require("./controllers/author");
 const readinglistRouter = require("./controllers/readinglist");
+const logoutRouter = require("./controllers/logout");
 const errorHandler = require("./middlewares/errorHandler");
 const tokenExtractor = require("./middlewares/tokenExtractor");
+const processSession = require("./middlewares/processSession");
 
 app.use(express.json());
 
-app.use("/api/blogs", tokenExtractor, blogsRouter);
+app.use("/api/blogs", processSession, tokenExtractor, blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/authors", authorRouter);
 app.use("/api/readinglist", readinglistRouter);
-
+app.use("/api/logout", processSession, tokenExtractor, logoutRouter);
 app.use(errorHandler);
 
 const start = async () => {

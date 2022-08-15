@@ -1,6 +1,7 @@
 const Blog = require("./blog");
 const User = require("./user");
 const ReadingList = require("./readinglist");
+const Session = require("./session");
 
 //one to many relationship between user and blog
 //it creates a new column in the blog table called userId despite there is no userId column in the blog table according to the schema/model
@@ -31,4 +32,5 @@ module.exports = {
 	Blog,
 	User,
 	ReadingList,
+	Session,
 };
