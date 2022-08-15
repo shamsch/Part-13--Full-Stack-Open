@@ -23,14 +23,9 @@ router.get("/:id", async (req, res) => {
 		include: [
 			{
 				model: Blog,
-				attributes: ["title", "urlString"],
-				as: "blogs",
-			},
-			{
-				model: Blog,
 				as: "readinglist_user",
 				through: {
-					attributes: []
+					attributes: ["id", "read"]
 				}
 			},
 		],
