@@ -9,7 +9,9 @@ const ReadingList = require("./readinglist");
 //and one user can have many blogs, thus the name one to many
 //note user table can now also be populated with data from the blog table
 
-User.hasMany(Blog);
+User.hasMany(Blog, {
+	as: "blogs",
+});
 Blog.belongsTo(User);
 
 
@@ -18,8 +20,8 @@ Blog.belongsTo(User);
 // now we can use the blogId and userId columns in the readinglist table to find the user and blog that is connected
 // the idea is user can have many blogs in the readinglist table and blog can have many users in the readinglist table
 
-User.belongsToMany(Blog, { through: ReadingList });
-Blog.belongsToMany(User, { through: ReadingList });
+User.belongsToMany(Blog, { through: ReadingList, as: "readinglist_user" });
+Blog.belongsToMany(User, { through: ReadingList});
 
 // commented out because of migration will be used to create the user table in the database from now on
 // Blog.sync({ alter: true });

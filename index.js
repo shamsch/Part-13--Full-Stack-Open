@@ -7,6 +7,7 @@ const blogsRouter = require("./controllers/blog");
 const usersRouter = require("./controllers/user");
 const loginRouter = require("./controllers/login");
 const authorRouter = require("./controllers/author");
+const readinglistRouter = require("./controllers/readinglist");
 const errorHandler = require("./middlewares/errorHandler");
 const tokenExtractor = require("./middlewares/tokenExtractor");
 
@@ -16,6 +17,7 @@ app.use("/api/blogs", tokenExtractor, blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/authors", authorRouter);
+app.use("/api/readinglist", readinglistRouter);
 
 app.use(errorHandler);
 

@@ -37,7 +37,7 @@ Blog.init(
 		year:{
 			type: DataTypes.INTEGER,
 			allowNull: false,
-		}
+		}, 
 	},
 	{ sequelize, underscored: true, timestamps: false, modelName: "blog" }
 );

@@ -8,10 +8,34 @@ router.get("/", async (req, res) => {
 			{
 				model: Blog,
 				attributes: ["title", "urlString"],
+				as: "blogs",
 			},
 		],
 	});
 	res.json(users);
+});
+
+router.get("/:id", async (req, res) => {
+	const user = await User.findOne({
+		where: {
+			id: req.params.id,
+		},
+		include: [
+			{
+				model: Blog,
+				attributes: ["title", "urlString"],
+				as: "blogs",
+			},
+			{
+				model: Blog,
+				as: "readinglist_user",
+				through: {
+					attributes: []
+				}
+			},
+		],
+	});
+	res.json(user);
 });
 
 router.post("/", async (req, res) => {
