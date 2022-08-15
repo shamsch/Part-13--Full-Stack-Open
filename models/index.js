@@ -1,5 +1,6 @@
 const Blog = require("./blog");
 const User = require("./user");
+const ReadingList = require("./readinglist");
 
 //one to many relationship between user and blog
 //it creates a new column in the blog table called userId despite there is no userId column in the blog table according to the schema/model
@@ -11,6 +12,15 @@ const User = require("./user");
 User.hasMany(Blog);
 Blog.belongsTo(User);
 
+
+// many to many relationship between user and blog through connection table readinglist 
+// it creates a new table called readinglist that has two columns blogId and userId
+// now we can use the blogId and userId columns in the readinglist table to find the user and blog that is connected
+// the idea is user can have many blogs in the readinglist table and blog can have many users in the readinglist table
+
+User.belongsToMany(Blog, { through: ReadingList });
+Blog.belongsToMany(User, { through: ReadingList });
+
 // commented out because of migration will be used to create the user table in the database from now on
 // Blog.sync({ alter: true });
 // User.sync({ alter: true });
@@ -18,4 +28,5 @@ Blog.belongsTo(User);
 module.exports = {
 	Blog,
 	User,
+	ReadingList,
 };
